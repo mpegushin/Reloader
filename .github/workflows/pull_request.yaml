@@ -106,7 +106,8 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        image: ${{ env.GHCR_IMAGE_REPOSITORY }}:${{ steps.generate_tag.outputs.new_tag }}
+        image: |
+          ${{ env.GHCR_IMAGE_REPOSITORY }}:${{ steps.generate_tag.outputs.GIT_TAG }}
         args: --file=Dockerfile --severity-threshold=high
       
     - name: Upload CVE result to GitHub Code Scanning
