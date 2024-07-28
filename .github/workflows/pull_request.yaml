@@ -106,8 +106,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        image: |
-          bla:bla
+        image: bla
         args: --file=Dockerfile --severity-threshold=high
       
     - name: Upload CVE result to GitHub Code Scanning
