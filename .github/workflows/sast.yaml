@@ -1,5 +1,19 @@
 name: Snyk SAST
-on: push
+on:
+  push:
+  pull_request_target:
+    branches:
+      - master
+    paths:
+      - '**'
+      - '!.markdownlint.yaml'
+      - '!.vale.ini'
+      - '!Dockerfile-docs'
+      - '!docs-nginx.conf'
+      - '!docs/**'
+      - '!theme_common'
+      - '!theme_override'
+
 jobs:
   snyk:
     runs-on: ubuntu-latest
