@@ -140,30 +140,6 @@ jobs:
           helm push ./packaged-chart/*.tgz oci://ghcr.io/mpegushin/charts
           rm -rf ./packaged-chart
 
-      # Commit back changes
-      - name: Log info about `.git` directory permissions
-        run: |
-          # Debug logging
-          echo "Disk usage: "
-          df -H
-
-          echo ".git files not owned by current user or current group:"
-          find .git ! -user $(id -u) -o ! -group $(id -g) | xargs ls -lah
-
-      - name: Commit files
-        run: |
-          git config --local user.email "mpegushin90@gmail.com"
-          git config --local user.name "mpegushin"
-          git status
-          git add .
-          git commit -m "[skip-ci] Update artifacts" -a
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.MPEGUSHIN_GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-
       - name: Push Latest Tag
         uses: anothrNick/github-tag-action@1.70.0
         env:
