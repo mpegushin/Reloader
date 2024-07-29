@@ -101,7 +101,7 @@ jobs:
           org.opencontainers.image.revision=${{ github.sha }}
 
     - name: Run Snyk to check Docker image for vulnerabilities
-      continue-on-error: true
+      continue-on-error: false
       uses: mpegushin/actions/snyk-containers@main
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -112,5 +112,6 @@ jobs:
       
     - name: Upload CVE result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
+      if: success() || failure()
       with:
         sarif_file: snyk.sarif
